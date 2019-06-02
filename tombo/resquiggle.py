@@ -2014,8 +2014,11 @@ def _resquiggle_main(args):
 
     if VERBOSE: th.status_message('Loading minimap2 reference.')
     # to be enabled when mappy genome sequence extraction bug is fixed
-    aligner = mappy.Aligner(
-        str(args.reference), preset=str('map-ont'), best_n=1)
+    if args.sensitive:
+        if VERBOSE: th.status_message('Using --sensitive alignment parameters.')
+        aligner = mappy.Aligner(str(args.reference), best_n=1, k=5, w=5, scoring=(12,4,4,24)) # 2,4,4,24
+    else:
+        aligner = mappy.Aligner(str(args.reference), preset=str('map-ont'), best_n=1)
     if not aligner:
         th.error_message_and_exit(
             'Failed to load reference genome FASTA for mapping.')

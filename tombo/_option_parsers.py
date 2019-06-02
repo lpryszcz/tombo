@@ -742,6 +742,10 @@ def get_resquiggle_parser():
     mod_args.add_argument(dna_opt[0], **dna_opt[1])
     mod_args.add_argument(rna_opt[0], **rna_opt[1])
 
+    alg_args = parser.add_argument_group('Alignment parameters')
+    alg_args.add_argument("--sensitive", action='store_true',
+                          help="Use sensitive alignment (~2x slower, but recommended for reads with frequent modifications).")
+
     filt_args = parser.add_argument_group('Read Filtering Argument')
     filt_args.add_argument(obsfilt_opt[0], **obsfilt_opt[1])
     filt_args.add_argument(qscr_opt[0], default=0, **qscr_opt[1])
